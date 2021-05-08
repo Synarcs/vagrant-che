@@ -19,7 +19,7 @@
     git clone  ""
     cd vagrant-che 
     vagrant up  (for virtualbox-provider)
-    cd docker-provider && vagrant up  (for virtualbox-provider) 
+    cd docker-provider && vagrant up  (for docker-provider) 
 
 
 ## Node 
