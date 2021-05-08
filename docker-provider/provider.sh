@@ -7,13 +7,18 @@ WORKDIR="/home/vagrant"
 echo "root dependencies"
 sudo apk update && sudo apt-get install -y curl,wget 
 
-# echo "docker"
-# curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
-# echo \
-#   "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
-#   $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-# sudo apt-get update && sudo apt-get install docker-ce 
-# sudo usermod -aG docker $USER && newgrp docker
+echo "docker"
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+echo \
+  "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
+  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+sudo apt-get update && sudo apt-get install docker-ce 
+sudo usermod -aG docker $USER && newgrp docker
+
+echo "enabling service docker"
+systemctl enable docker # start docker on dind daemon startup
+systemctl start docker
+
 
 echo "minikube"
 curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube_latest_amd64.deb
